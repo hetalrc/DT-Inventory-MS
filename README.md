@@ -7,5 +7,4 @@ Inventory Management System
 - npm install
 - npm start
 
-
-<img alt="" src="docs/images/app-screenshot.png" width="512" height="300">
+<img alt="" src="doc/images/app-screenshot.png" width="512" height="300">
