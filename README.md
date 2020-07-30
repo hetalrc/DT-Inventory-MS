@@ -1,2 +1,11 @@
 # DT-Inventory-MS
-Basic Inventory Management System to show available items, select items, remove selected items
+Inventory Management System
+
+
+# Installation -
+- clone the repository
+- npm install
+- npm start
+
+
+<img alt="" src="docs/images/app-screenshot.png" width="512" height="300">
