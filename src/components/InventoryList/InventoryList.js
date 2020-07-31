@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, ListItem, ListItemText, IconButton, ListItemSecondaryAction, withStyles, Typography, Grid } from '@material-ui/core';
+import { List, ListItem, ListItemText, IconButton, ListItemSecondaryAction, withStyles, Typography, Grid, Button } from '@material-ui/core';
 import { Check, Delete, DragIndicator } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import classNames from "classnames";
@@ -26,11 +26,16 @@ const InventoryList = ({classes, title, isSelectedList=false, itemList, dispatch
         }
 
       }
-      const onDragStart = (ev, item) => {
-        if(item.draggable){
-            dispatch({type: 'DRAGGED', item:item});
-        }
-      };
+    const onDragStart = (ev, item) => {
+      if(item.draggable){
+          dispatch({type: 'DRAGGED', item:item});
+      }
+    };
+
+    const handleLoadMore = () => {
+      dispatch({type: 'LOAD_MORE'});
+    }
+    
     
     if(!list.length && isSelectedList){
       return (
@@ -76,6 +81,13 @@ const InventoryList = ({classes, title, isSelectedList=false, itemList, dispatch
             );
           })}
       </List>
+      {
+        !isSelectedList && list.length < 10000
+        ?
+        (<Button variant="contained" color="primary" onClick={() => {handleLoadMore()}}>Load More</Button>):
+        null
+      }
+      
       </Grid>
     );
 }

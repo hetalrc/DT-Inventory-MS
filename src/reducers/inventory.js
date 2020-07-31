@@ -1,4 +1,5 @@
-import {defaultItemList} from '../constants';
+import { generateRecords } from "../utils/utils";
+
 
 
 const inventory = (state = [], action) => {
@@ -8,6 +9,14 @@ const inventory = (state = [], action) => {
             ...state,
             draggedItem: action.item
         };
+      case 'LOAD_MORE':
+        const newData =  generateRecords(state.itemList.length);
+        const updatedData = state.itemList.concat(newData);
+        console.log(updatedData);
+        return {
+          ...state,
+          itemList: updatedData 
+      };
       case 'ADD':
           const updatedItemList = state.itemList.map(item =>
             (item.id === action.draggedItem.id)
@@ -50,7 +59,7 @@ const inventory = (state = [], action) => {
      
       default:
         return {
-            itemList: defaultItemList,
+            itemList: generateRecords(),
             addedItemList:[],  
             
         }

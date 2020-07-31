@@ -1,15 +1,27 @@
 import React from 'react';
 import { Grid, Typography, withStyles } from "@material-ui/core";
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
 
-const InventoryResult = ({classes, addedItemList=[]}) => {
-    const totalCost = addedItemList.reduce(function(prev, cur) {
-        return prev + cur.cost;
-      }, 0);
+const getAddedList = state => state.inventory.addedItemList;
+
+const totalAmount = createSelector([getAddedList], state => {
+  return state.reduce(function(prev, cur) {
+    return prev + cur.cost;
+  }, 0);
+});
+
+const selectedLength = createSelector([getAddedList], state => {
+  return state.length;
+});
+
+const InventoryResult = ({classes}) => {
+  const selecteditemLength = useSelector(selectedLength);
+  const totalSelectedItemAmount = useSelector(totalAmount);
     return (
         <Grid item  className={classes.resultCard}>
-        <Typography>Selected Count - {addedItemList.length}</Typography>
-        <Typography>Total Amount - {totalCost}</Typography>
+        <Typography>Selected Count - {selecteditemLength}</Typography>
+        <Typography>Total Amount - {totalSelectedItemAmount}</Typography>
         </Grid>
     );
 };
@@ -29,11 +41,6 @@ const ResultStyles = () => ({
     }
 });
 
-const mapStateToProps = (state) => {
-    return {
-        addedItemList: state.inventory.addedItemList
-    };
-  };
   const mapDispatchToProps = (dispatch) => {
     return {
       dispatch,
@@ -41,4 +48,4 @@ const mapStateToProps = (state) => {
   };
   
   const InventoryResultComp = withStyles(ResultStyles)(InventoryResult);
-  export default connect(mapStateToProps, mapDispatchToProps)(InventoryResultComp);
+  export default connect(null, mapDispatchToProps)(InventoryResultComp);

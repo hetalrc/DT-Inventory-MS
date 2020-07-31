@@ -50,6 +50,9 @@ const DashboardStyles = () => ({
     boxShadow: '5px 5px 5px rgba(68, 68, 68, 0.6)',
     justifyContent: 'space-evenly',
     position: 'relative',
+    height: '600px',
+    padding: '10px',
+    overflowY: 'scroll'
 
    }
 });
